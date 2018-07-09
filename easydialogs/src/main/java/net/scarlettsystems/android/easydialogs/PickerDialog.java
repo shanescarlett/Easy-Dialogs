@@ -31,6 +31,7 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	private Typeface mTypeface;
 	private int mTitleSize, mTextSize;
 	private int mBackgroundColour = Color.TRANSPARENT;
+	private int mSeparatorColour = Color.BLACK;
 	private int mTextColour = Color.BLACK;
 	private boolean mOpenKeyboard = false;
 
@@ -39,18 +40,29 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		mContext = context;
 	}
 
+	/**
+	 * Interface definition for method to be called when the ok button is clicked.
+	 */
 	@SuppressWarnings("unused")
 	public interface OnOkListener
 	{
 		void onOk(int value);
 	}
 
+	/**
+	 * Interface definition for method to be called when the cancel button is clicked.
+	 */
 	@SuppressWarnings("unused")
 	public interface OnCancelListener
 	{
 		void onCancel();
 	}
 
+	/**
+	 * Set listener to be called when the ok button is clicked in the dialog.
+	 * @param l {@link OnOkListener}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setOnOkListener(OnOkListener l)
 	{
@@ -58,6 +70,11 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set listener to be called when the cancel button is clicked in the dialog.
+	 * @param l {@link OnCancelListener}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setOnCancelListener(OnCancelListener l)
 	{
@@ -65,6 +82,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the title to be displayed on the top of the dialog.
+	 *
+	 * @param title title as a {@link CharSequence}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTitle(CharSequence title)
 	{
@@ -72,6 +95,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the title to be displayed on the top of the dialog.
+	 *
+	 * @param resId title as a string resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTitle(@StringRes int resId)
 	{
@@ -79,6 +108,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the size of the title.
+	 *
+	 * @param size size in pixels
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTitlePixelSize(int size)
 	{
@@ -86,6 +121,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the size of the title.
+	 *
+	 * @param resId size as a dimension resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTitleDimension(@DimenRes int resId)
 	{
@@ -93,6 +134,13 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the size of all the text within the dialog, excluding the title. For the title, see
+	 * {@link PickerDialog#setTitleDimension}.
+	 *
+	 * @param size size in pixels
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTextPixelSize(int size)
 	{
@@ -100,6 +148,13 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the size of all the text within the dialog, excluding the title. For the title, see
+	 * {@link PickerDialog#setTitleDimension}.
+	 *
+	 * @param resId size as a dimension resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTextDimension(@DimenRes int resId)
 	{
@@ -107,6 +162,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set text to be displayed for the Ok button
+	 *
+	 * @param text Ok button text
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setOkButtonText(CharSequence text)
 	{
@@ -114,6 +175,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set text to be displayed for the Ok button
+	 *
+	 * @param resId text as a string resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setOkButtonText(@StringRes int resId)
 	{
@@ -121,6 +188,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set text to be displayed for the Cancel button
+	 *
+	 * @param text Cancel button text
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setCancelButtonText(CharSequence text)
 	{
@@ -128,6 +201,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set text to be displayed for the Cancel button
+	 *
+	 * @param resId text as a string resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setCancelButtonText(@StringRes int resId)
 	{
@@ -135,6 +214,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the background colour for the dialog.
+	 *
+	 * @param colour Android {@link ColorInt}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setBackgroundColour(@ColorInt int colour)
 	{
@@ -142,6 +227,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the background colour for the dialog.
+	 *
+	 * @param resId colour as a colour resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setBackgroundColourResource(@ColorRes int resId)
 	{
@@ -149,6 +240,38 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the colour of the separator between the title and the dialog's body.
+	 *
+	 * @param colour Android {@link ColorInt}
+	 * @return self for method chaining
+	 */
+	@SuppressWarnings("unchecked")
+	public T setSeparatorColour(@ColorInt int colour)
+	{
+		mSeparatorColour = colour;
+		return (T)this;
+	}
+
+	/**
+	 * Set the colour of the separator between the title and the dialog's body.
+	 *
+	 * @param resId colour as a colour resource ID
+	 * @return self for method chaining
+	 */
+	@SuppressWarnings("unchecked")
+	public T setSeparatorColourResource(@ColorRes int resId)
+	{
+		mSeparatorColour = mContext.getResources().getColor(resId);
+		return (T)this;
+	}
+
+	/**
+	 * Set the colour of the text displayed within the dialog.
+	 *
+	 * @param colour Android {@link ColorInt}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTextColour(@ColorInt int colour)
 	{
@@ -156,6 +279,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the colour of the text displayed within the dialog.
+	 *
+	 * @param resId colour as a colour resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTextColourResource(@ColorRes int resId)
 	{
@@ -163,6 +292,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the {@link Typeface} to be used for the text displayed within the dialog.
+	 *
+	 * @param typeface font as a {@link Typeface}
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setTypeface(Typeface typeface)
 	{
@@ -170,6 +305,12 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Set the font to be used for the text displayed within the dialog.
+	 *
+	 * @param  resId font as a font resource ID
+	 * @return self for method chaining
+	 */
 	@SuppressWarnings("unchecked")
 	public T setFontResource(@FontRes int resId)
 	{
@@ -177,14 +318,22 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
+	/**
+	 * Enable or disable the automatic opening of the soft input keyboard upon opening the dialog.
+	 *
+	 * @param enabled enabled state
+	 * @return self for method chaining
+	 */
+	@SuppressWarnings("unchecked")
+	public T setOpenKeyboard(boolean enabled)
+	{
+		mOpenKeyboard = enabled;
+		return (T)this;
+	}
+
 	Typeface getTypeface()
 	{
 		return mTypeface;
-	}
-
-	int getTitleSize()
-	{
-		return mTitleSize;
 	}
 
 	int getTextSize()
@@ -197,37 +346,62 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return mTextColour;
 	}
 
-	@SuppressWarnings("unchecked")
-	public T setOpenKeyboard(boolean enabled)
-	{
-		mOpenKeyboard = enabled;
-		return (T)this;
-	}
-
 	public Context getContext()
 	{
 		return mContext;
 	}
 
+	/**
+	 * Method invoked for the creation of the content view, placed between the title and the Ok
+	 * and Cancel buttons of the dialog window.
+	 *
+	 * @param context the {@link Context} for the dialog
+	 * @return the {@link View} of the dialog's content
+	 */
 	public abstract View onCreateContentView(Context context);
+
+	/**
+	 * Method invoked to retrieve the picked value or index of the content of the dialog.
+	 *
+	 * @return the picked value
+	 */
 	public abstract int getPickedValue();
 
+	/**
+	 * Show the dialog with previously set configurations. Results in a no-op if the dialog is
+	 * already shown.
+	 * <br>
+	 * Note: configurations set after the dialog is shown will not be reflected in the current
+	 * dialog. The method {@link PickerDialog#dismiss()} must be called and
+	 * {@code show()} must be re-invoked for the changes to be reflected.
+	 */
 	public void show()
 	{
-		if (getContext() == null)
-		{
-			return;
-		}
+		if(getContext() == null){return;}
+		if(mDialog != null){return;}
+
 		mDialog = new Dialog(getContext());
 		mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mDialog.setContentView(R.layout.dialog_picker);
 
 		configureTitle(mDialog);
+		configureSeparator(mDialog);
 		configureOkButton(mDialog);
 		configureCancelButton(mDialog);
 		configureContentView(mDialog);
 		mDialog.show();
 		configureWindow(mDialog);
+	}
+
+	/**
+	 * Dismiss the currently open dialog. Results in a no-op if the dialog is not shown.
+	 */
+	public void dismiss()
+	{
+		if(mDialog == null){return;}
+
+		mDialog.dismiss();
+		mDialog = null;
 	}
 
 	private void configureTitle(Dialog d)
@@ -237,6 +411,11 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		t.setTypeface(mTypeface);
 		t.setTextColor(mTextColour);
 		t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleSize);
+	}
+
+	private void configureSeparator(Dialog d)
+	{
+		d.findViewById(R.id.separator).setBackgroundColor(mSeparatorColour);
 	}
 
 	private void configureOkButton(Dialog d)
