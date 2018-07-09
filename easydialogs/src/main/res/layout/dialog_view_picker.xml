@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/scroll"
+	android:layout_width="0dp"
+	android:layout_height="0dp"
+	android:layout_marginLeft="@dimen/ui_margin"
+	android:layout_marginRight="@dimen/ui_margin"
+	android:layout_weight="1"
+	android:requiresFadingEdge="vertical"
+	android:scrollbars="vertical">
+
+		<android.support.v7.widget.GridLayout
+			android:id="@+id/list"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+	</ScrollView>

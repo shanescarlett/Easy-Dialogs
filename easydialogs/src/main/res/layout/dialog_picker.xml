@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/root"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical"
+	tools:ignore="RtlHardcoded">
+
+	<View
+		android:id="@+id/area"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintDimensionRatio="1:1"/>
+
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="@dimen/ui_margin"
+		android:includeFontPadding="false"
+
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/separator"
+
+		tools:text="Pick an Item"/>
+
+	<View
+		android:id="@+id/separator"
+		android:layout_width="0dp"
+		android:layout_height="@dimen/ui_separator_width"
+		android:layout_marginLeft="@dimen/ui_margin"
+		android:layout_marginRight="@dimen/ui_margin"
+		android:layout_marginBottom="@dimen/ui_margin"
+
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/title"
+		/>
+
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/button_cancel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="@dimen/ui_margin"
+		android:paddingBottom="@dimen/ui_margin"
+		android:paddingRight="@dimen/ui_margin_half"
+		android:paddingLeft="@dimen/ui_margin"
+		android:background="@android:color/transparent"
+		android:includeFontPadding="false"
+		android:textAllCaps="false"
+
+		app:layout_constraintTop_toTopOf="@id/button_ok"
+		app:layout_constraintBottom_toBottomOf="@id/button_ok"
+		app:layout_constraintRight_toLeftOf="@id/button_ok"/>
+
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/button_ok"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="@dimen/ui_margin"
+		android:paddingBottom="@dimen/ui_margin"
+		android:paddingRight="@dimen/ui_margin"
+		android:paddingLeft="@dimen/ui_margin_half"
+		android:background="@android:color/transparent"
+		android:includeFontPadding="false"
+		android:textAllCaps="false"
+
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintRight_toRightOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>
