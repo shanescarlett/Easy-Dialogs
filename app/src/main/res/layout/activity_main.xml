@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="net.scarlettsystems.android.easydialogsdemo.MainActivity"
+	android:orientation="vertical"
+	android:background="@android:color/white"
+	android:padding="16dp"
+
+	tools:ignore="HardcodedText">
+
+	<android.support.v7.widget.AppCompatButton
+		android:id="@+id/number"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:text="Number Picker"/>
+
+	<android.support.v7.widget.AppCompatButton
+		android:id="@+id/radio"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:text="Radio Picker"/>
+
+	<android.support.v7.widget.AppCompatButton
+		android:id="@+id/view"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:text="View Picker"/>
+</LinearLayout>

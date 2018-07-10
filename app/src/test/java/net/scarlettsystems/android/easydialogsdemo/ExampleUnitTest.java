@@ -1,4 +1,4 @@
-package net.scarlettsystems.android.easydialogs;
+package net.scarlettsystems.android.easydialogsdemo;
 
 import org.junit.Test;
 

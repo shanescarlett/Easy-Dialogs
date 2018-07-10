@@ -1,4 +1,4 @@
-package net.scarlettsystems.android.easydialogs;
+package net.scarlettsystems.android.easydialogsdemo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
