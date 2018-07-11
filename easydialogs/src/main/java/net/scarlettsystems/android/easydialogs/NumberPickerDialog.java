@@ -169,10 +169,10 @@ public class NumberPickerDialog extends PickerDialog<NumberPickerDialog>
 					Paint paint = (Paint) selectorWheelPaintField.get(numberPicker);
 					paint.setColor(color);
 					paint.setTypeface(typeface);
-					paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, numberPicker.getResources().getDisplayMetrics()));
+					//paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, numberPicker.getResources().getDisplayMetrics()));
 					((EditText) child).setTextColor(color);
 					((EditText) child).setTypeface(typeface);
-					((EditText) child).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+					//((EditText) child).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 					numberPicker.invalidate();
 					((View)numberPicker.getParent()).invalidate();
 					return;
@@ -181,12 +181,6 @@ public class NumberPickerDialog extends PickerDialog<NumberPickerDialog>
 					e.printStackTrace();
 				}
 			}
-//			else if (child instanceof TextView)
-//			{
-//				((TextView) child).setTextColor(color);
-//				((TextView) child).setTypeface(typeface);
-//				((TextView) child).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-//			}
 		}
 	}
 
