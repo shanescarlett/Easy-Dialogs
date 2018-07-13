@@ -21,23 +21,17 @@ import android.view.Window;
 import android.view.WindowManager;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class PickerDialog<T extends PickerDialog<T>>
+public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog<T>
 {
-	private Context mContext;
+
 	private Dialog mDialog;
 	private OnOkListener mOnOk;
 	private OnCancelListener mOnCancel;
-	private Object mTitle, mOkText, mCancelText;
-	private Typeface mTypeface;
-	private int mTitleSize, mTextSize;
-	private int mBackgroundColour = Color.TRANSPARENT;
-	private int mSeparatorColour = Color.BLACK;
-	private int mTextColour = Color.BLACK;
-	private boolean mOpenKeyboard = false;
+	private CharSequence mOkText, mCancelText;
 
 	public PickerDialog(Context context)
 	{
-		mContext = context;
+		super(context);
 	}
 
 	/**
@@ -82,85 +76,7 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		return (T)this;
 	}
 
-	/**
-	 * Set the title to be displayed on the top of the dialog.
-	 *
-	 * @param title title as a {@link CharSequence}
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTitle(CharSequence title)
-	{
-		mTitle = title;
-		return (T)this;
-	}
 
-	/**
-	 * Set the title to be displayed on the top of the dialog.
-	 *
-	 * @param resId title as a string resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTitle(@StringRes int resId)
-	{
-		mTitle = resId;
-		return (T)this;
-	}
-
-	/**
-	 * Set the size of the title.
-	 *
-	 * @param size size in pixels
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTitlePixelSize(int size)
-	{
-		mTitleSize = size;
-		return (T)this;
-	}
-
-	/**
-	 * Set the size of the title.
-	 *
-	 * @param resId size as a dimension resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTitleDimension(@DimenRes int resId)
-	{
-		mTitleSize = mContext.getResources().getDimensionPixelSize(resId);
-		return (T)this;
-	}
-
-	/**
-	 * Set the size of all the text within the dialog, excluding the title. For the title, see
-	 * {@link PickerDialog#setTitleDimension}.
-	 *
-	 * @param size size in pixels
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTextPixelSize(int size)
-	{
-		mTextSize = size;
-		return (T)this;
-	}
-
-	/**
-	 * Set the size of all the text within the dialog, excluding the title. For the title, see
-	 * {@link PickerDialog#setTitleDimension}.
-	 *
-	 * @param resId size as a dimension resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTextDimension(@DimenRes int resId)
-	{
-		mTextSize = mContext.getResources().getDimensionPixelSize(resId);
-		return (T)this;
-	}
 
 	/**
 	 * Set text to be displayed for the Ok button
@@ -184,7 +100,7 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	@SuppressWarnings("unchecked")
 	public T setOkButtonText(@StringRes int resId)
 	{
-		mOkText = resId;
+		mOkText = getContext().getString(resId);
 		return (T)this;
 	}
 
@@ -210,145 +126,8 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	@SuppressWarnings("unchecked")
 	public T setCancelButtonText(@StringRes int resId)
 	{
-		mCancelText = resId;
+		mCancelText = getContext().getString(resId);
 		return (T)this;
-	}
-
-	/**
-	 * Set the background colour for the dialog.
-	 *
-	 * @param colour Android {@link ColorInt}
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setBackgroundColour(@ColorInt int colour)
-	{
-		mBackgroundColour = colour;
-		return (T)this;
-	}
-
-	/**
-	 * Set the background colour for the dialog.
-	 *
-	 * @param resId colour as a colour resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setBackgroundColourResource(@ColorRes int resId)
-	{
-		mBackgroundColour = mContext.getResources().getColor(resId);
-		return (T)this;
-	}
-
-	/**
-	 * Set the colour of the separator between the title and the dialog's body.
-	 *
-	 * @param colour Android {@link ColorInt}
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setSeparatorColour(@ColorInt int colour)
-	{
-		mSeparatorColour = colour;
-		return (T)this;
-	}
-
-	/**
-	 * Set the colour of the separator between the title and the dialog's body.
-	 *
-	 * @param resId colour as a colour resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setSeparatorColourResource(@ColorRes int resId)
-	{
-		mSeparatorColour = mContext.getResources().getColor(resId);
-		return (T)this;
-	}
-
-	/**
-	 * Set the colour of the text displayed within the dialog.
-	 *
-	 * @param colour Android {@link ColorInt}
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTextColour(@ColorInt int colour)
-	{
-		mTextColour = colour;
-		return (T)this;
-	}
-
-	/**
-	 * Set the colour of the text displayed within the dialog.
-	 *
-	 * @param resId colour as a colour resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTextColourResource(@ColorRes int resId)
-	{
-		mTextColour = mContext.getResources().getColor(resId);
-		return (T)this;
-	}
-
-	/**
-	 * Set the {@link Typeface} to be used for the text displayed within the dialog.
-	 *
-	 * @param typeface font as a {@link Typeface}
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setTypeface(Typeface typeface)
-	{
-		mTypeface = typeface;
-		return (T)this;
-	}
-
-	/**
-	 * Set the font to be used for the text displayed within the dialog.
-	 *
-	 * @param  resId font as a font resource ID
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setFontResource(@FontRes int resId)
-	{
-		mTypeface = ResourcesCompat.getFont(mContext, resId);
-		return (T)this;
-	}
-
-	/**
-	 * Enable or disable the automatic opening of the soft input keyboard upon opening the dialog.
-	 *
-	 * @param enabled enabled state
-	 * @return self for method chaining
-	 */
-	@SuppressWarnings("unchecked")
-	public T setOpenKeyboard(boolean enabled)
-	{
-		mOpenKeyboard = enabled;
-		return (T)this;
-	}
-
-	Typeface getTypeface()
-	{
-		return mTypeface;
-	}
-
-	int getTextSize()
-	{
-		return mTextSize;
-	}
-
-	int getTextColour()
-	{
-		return mTextColour;
-	}
-
-	public Context getContext()
-	{
-		return mContext;
 	}
 
 	/**
@@ -367,30 +146,22 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	 */
 	public abstract int getPickedValue();
 
-	/**
-	 * Show the dialog with previously set configurations. Results in a no-op if the dialog is
-	 * already shown.
-	 * <br>
-	 * Note: configurations set after the dialog is shown will not be reflected in the current
-	 * dialog. The method {@link PickerDialog#dismiss()} must be called and
-	 * {@code show()} must be re-invoked for the changes to be reflected.
-	 */
-	public void show()
+
+
+	@Override
+	public Dialog onCreateDialog(Context context)
 	{
-		if(getContext() == null){return;}
-		if(mDialog != null){return;}
+		Dialog dialog = new Dialog(getContext());
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_picker);
 
-		mDialog = new Dialog(getContext());
-		mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		mDialog.setContentView(R.layout.dialog_picker);
+		configureTitle(dialog);
+		configureSeparator(dialog);
+		configureOkButton(dialog);
+		configureCancelButton(dialog);
+		configureContentView(dialog);
 
-		configureTitle(mDialog);
-		configureSeparator(mDialog);
-		configureOkButton(mDialog);
-		configureCancelButton(mDialog);
-		configureContentView(mDialog);
-		mDialog.show();
-		configureWindow(mDialog);
+		return dialog;
 	}
 
 	/**
@@ -407,10 +178,10 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	private void configureTitle(Dialog d)
 	{
 		AppCompatTextView t = d.findViewById(R.id.title);
-		setTextToView(mTitle, t);
-		t.setTypeface(mTypeface);
-		t.setTextColor(mTextColour);
-		t.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleSize);
+		setTextToView(getTitle(), t);
+		t.setTypeface(getTypeface());
+		t.setTextColor(getTextColour());
+		t.setTextSize(TypedValue.COMPLEX_UNIT_PX, getTitleSize());
 	}
 
 	private void configureSeparator(Dialog d)
@@ -421,10 +192,10 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	private void configureOkButton(Dialog d)
 	{
 		AppCompatTextView b = d.findViewById(R.id.button_ok);
-		setTextToView(mOkText, b);
-		b.setTypeface(mTypeface);
-		b.setTextColor(mTextColour);
-		b.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+		b.setText(mOkText);
+		b.setTypeface(getTypeface());
+		b.setTextColor(getTextColour());
+		b.setTextSize(TypedValue.COMPLEX_UNIT_PX, getTextSize());
 		b.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -438,10 +209,10 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	private void configureCancelButton(Dialog d)
 	{
 		AppCompatTextView b = d.findViewById(R.id.button_cancel);
-		setTextToView(mCancelText, b);
-		b.setTypeface(mTypeface);
-		b.setTextColor(mTextColour);
-		b.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+		b.setText(mCancelText);
+		b.setTypeface(getTypeface());
+		b.setTextColor(getTextColour());
+		b.setTextSize(TypedValue.COMPLEX_UNIT_PX, getTextSize());
 		b.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -467,10 +238,10 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 	private void configureContentView(Dialog d)
 	{
 		ConstraintLayout root = d.findViewById(R.id.root);
-		root.setBackgroundColor(mBackgroundColour);
+		root.setBackgroundColor(getBackgroundColour());
 		ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(0, 0);
-		lp.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.ui_margin);
-		lp.rightMargin = mContext.getResources().getDimensionPixelSize(R.dimen.ui_margin);
+		lp.leftMargin = getContext().getResources().getDimensionPixelSize(R.dimen.ui_margin);
+		lp.rightMargin = getContext().getResources().getDimensionPixelSize(R.dimen.ui_margin);
 		View content = onCreateContentView(getContext());
 		content.setLayoutParams(lp);
 		content.setId(ViewCompat.generateViewId());
@@ -489,28 +260,7 @@ public abstract class PickerDialog<T extends PickerDialog<T>>
 		cs.applyTo(root);
 	}
 
-	@SuppressWarnings("ConstantConditions")
-	private void configureWindow(Dialog d)
-	{
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-		lp.copyFrom(d.getWindow().getAttributes());
-		if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-		{
-			lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-			lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-		}
-		else if(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-		{
-			lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-			lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-		}
 
-		d.getWindow().setAttributes(lp);
-		if(mOpenKeyboard)
-		{
-			d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-		}
-	}
 
 	@SuppressWarnings("ConstantConditions")
 	private void onDialogOk()
