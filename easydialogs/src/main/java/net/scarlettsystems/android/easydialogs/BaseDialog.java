@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
@@ -27,10 +28,35 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	private int mBackgroundColour = Color.TRANSPARENT;
 	private int mSeparatorColour = Color.BLACK;
 	private OnDialogShownListener mDialogShownCallback;
+	private ViewTreeObserver.OnGlobalLayoutListener mLayoutListener;
 
 	public BaseDialog(Context context)
 	{
 		mContext = context;
+		mLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener()
+		{
+			@Override
+			public void onGlobalLayout()
+			{
+				BaseDialog.this.onGlobalLayout();
+			}
+		};
+	}
+
+	private void onGlobalLayout()
+	{
+		if(mDialogShownCallback != null)
+		{
+			mDialogShownCallback.onDialogShown();
+		}
+		if(Build.VERSION.SDK_INT >= 16)
+		{
+			mDialog.findViewById(android.R.id.content).getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutListener);
+		}
+		else
+		{
+			mDialog.findViewById(android.R.id.content).getViewTreeObserver().removeGlobalOnLayoutListener(mLayoutListener);
+		}
 	}
 
 	public abstract Dialog onCreateDialog(Context context);
@@ -59,18 +85,7 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 		mDialog
 				.findViewById(android.R.id.content)
 				.getViewTreeObserver()
-				.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-		{
-			@Override
-			public void onGlobalLayout()
-			{
-				if(mDialogShownCallback != null)
-				{
-					mDialogShownCallback.onDialogShown();
-				}
-
-			}
-		});
+				.addOnGlobalLayoutListener(mLayoutListener);
 	}
 
 	/**
