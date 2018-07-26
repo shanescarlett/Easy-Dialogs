@@ -2,29 +2,19 @@ package net.scarlettsystems.android.easydialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.FontRes;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog<T>
 {
-
-	private Dialog mDialog;
 	private OnOkListener mOnOk;
 	private OnCancelListener mOnCancel;
 	private CharSequence mOkText, mCancelText;
@@ -130,6 +120,13 @@ public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog
 		return (T)this;
 	}
 
+//	@SuppressWarnings("unchecked")
+//	public T setSeparatorColour(@ColorInt int colour)
+//	{
+//		mSeparatorColour = colour;
+//		return(T)this;
+//	}
+
 	/**
 	 * Method invoked for the creation of the content view, placed between the title and the Ok
 	 * and Cancel buttons of the dialog window.
@@ -145,7 +142,6 @@ public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog
 	 * @return the picked value
 	 */
 	public abstract int getPickedValue();
-
 
 
 	@Override
@@ -164,17 +160,6 @@ public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog
 		return dialog;
 	}
 
-	/**
-	 * Dismiss the currently open dialog. Results in a no-op if the dialog is not shown.
-	 */
-	public void dismiss()
-	{
-		if(mDialog == null){return;}
-
-		mDialog.dismiss();
-		mDialog = null;
-	}
-
 	private void configureTitle(Dialog d)
 	{
 		AppCompatTextView t = d.findViewById(R.id.title);
@@ -186,7 +171,7 @@ public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog
 
 	private void configureSeparator(Dialog d)
 	{
-		d.findViewById(R.id.separator).setBackgroundColor(mSeparatorColour);
+		d.findViewById(R.id.separator).setBackgroundColor(getSeparatorColour());
 	}
 
 	private void configureOkButton(Dialog d)
@@ -265,14 +250,14 @@ public abstract class PickerDialog<T extends PickerDialog<T>> extends BaseDialog
 	@SuppressWarnings("ConstantConditions")
 	private void onDialogOk()
 	{
-		mDialog.dismiss();
+		dismiss();
 		if(mOnOk == null){return;}
 		mOnOk.onOk(getPickedValue());
 	}
 
 	private void onDialogCancel()
 	{
-		mDialog.dismiss();
+		dismiss();
 		if(mOnCancel == null){return;}
 		mOnCancel.onCancel();
 	}

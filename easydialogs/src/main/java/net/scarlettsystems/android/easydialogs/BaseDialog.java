@@ -38,7 +38,7 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	 * already shown.
 	 * <br>
 	 * Note: configurations set after the dialog is shown will not be reflected in the current
-	 * dialog. The method {@link PickerDialog#dismiss()} must be called and
+	 * dialog. The method {@link BaseDialog#dismiss()} must be called and
 	 * {@code show()} must be re-invoked for the changes to be reflected.
 	 */
 	public void show()
@@ -49,6 +49,17 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 		mDialog = onCreateDialog(getContext());
 		mDialog.show();
 		configureWindow(mDialog);
+	}
+
+	/**
+	 * Dismiss the currently open dialog. Results in a no-op if the dialog is not shown.
+	 */
+	public void dismiss()
+	{
+		if(mDialog == null){return;}
+
+		mDialog.dismiss();
+		mDialog = null;
 	}
 
 	@SuppressWarnings("ConstantConditions")
@@ -102,6 +113,11 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	int getBackgroundColour()
 	{
 		return mBackgroundColour;
+	}
+
+	int getSeparatorColour()
+	{
+		return mSeparatorColour;
 	}
 
 	public Context getContext()
