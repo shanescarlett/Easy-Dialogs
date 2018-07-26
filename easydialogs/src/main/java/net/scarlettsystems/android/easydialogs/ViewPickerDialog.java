@@ -8,6 +8,7 @@ import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.GridLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public class ViewPickerDialog extends PickerDialog<ViewPickerDialog>
 {
 	private CharSequence[] mEntries;
 	private ArrayList<View> mItemViews;
+	private GridLayout mGridLayout;
+	private ScrollView mScrollView;
 	private int mColumns = 1;
 	private int mCheckedIndex = 0;
 	private int mSelectedColour = Color.TRANSPARENT;
@@ -56,12 +59,26 @@ public class ViewPickerDialog extends PickerDialog<ViewPickerDialog>
 		return this;
 	}
 
+	private void scrollTo(int index)
+	{
+		int childY = (int)mGridLayout.getChildAt(index).getY();
+		mScrollView.scrollTo(0, childY);
+	}
+
 	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateContentView(Context context)
 	{
 		View content = LayoutInflater.from(context).inflate(R.layout.dialog_view_picker, null);
 		configureButtons(content);
+		this.setOnDialogShownListener(new OnDialogShownListener()
+		{
+			@Override
+			public void onDialogShown()
+			{
+				scrollTo(getPickedValue());
+			}
+		});
 		return content;
 	}
 
@@ -80,12 +97,13 @@ public class ViewPickerDialog extends PickerDialog<ViewPickerDialog>
 	private void configureButtons(View v)
 	{
 		mItemViews = new ArrayList<>();
-		GridLayout gridLayout = v.findViewById(R.id.list);
-		gridLayout.setColumnCount(mColumns);
+		mScrollView = v.findViewById(R.id.scroll);
+		mGridLayout = v.findViewById(R.id.list);
+		mGridLayout.setColumnCount(mColumns);
 		for (CharSequence item : mEntries)
 		{
 			View itemView = createListItemView(item.toString());
-			gridLayout.addView(itemView);
+			mGridLayout.addView(itemView);
 			mItemViews.add(itemView);
 		}
 		selectItem(mCheckedIndex);

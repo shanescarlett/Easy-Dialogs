@@ -10,10 +10,12 @@ import android.support.annotation.ColorRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,8 @@ public class RadioPickerDialog extends PickerDialog<RadioPickerDialog>
 {
 	private CharSequence[] mEntries;
 	private ArrayList<View> mItemViews;
+	private RadioGroup mRadioGroup;
+	private ScrollView mScrollView;
 	private int mCheckedIndex = 0;
 	private int mButtonColour = Color.BLACK;
 
@@ -53,12 +57,26 @@ public class RadioPickerDialog extends PickerDialog<RadioPickerDialog>
 		return this;
 	}
 
+	private void scrollTo(int index)
+	{
+		int childY = (int)mRadioGroup.getChildAt(index).getY();
+		mScrollView.scrollTo(0, childY);
+	}
+
 	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateContentView(Context context)
 	{
 		View content = LayoutInflater.from(context).inflate(R.layout.dialog_radio_picker, null);
 		configureButtons(content);
+		this.setOnDialogShownListener(new OnDialogShownListener()
+		{
+			@Override
+			public void onDialogShown()
+			{
+				scrollTo(getPickedValue());
+			}
+		});
 		return content;
 	}
 
@@ -71,14 +89,15 @@ public class RadioPickerDialog extends PickerDialog<RadioPickerDialog>
 	private void configureButtons(View v)
 	{
 		mItemViews = new ArrayList<>();
-		RadioGroup radioGroup = v.findViewById(R.id.radio_group);
+		mScrollView = v.findViewById(R.id.scroll);
+		mRadioGroup = v.findViewById(R.id.radio_group);
 		for (CharSequence item : mEntries)
 		{
 			View itemView = createListItemView(item.toString());
-			radioGroup.addView(itemView);
+			mRadioGroup.addView(itemView);
 			mItemViews.add(itemView);
 		}
-		radioGroup.check(mItemViews.get(mCheckedIndex).getId());
+		mRadioGroup.check(mItemViews.get(mCheckedIndex).getId());
 	}
 
 	private View createListItemView(String name)

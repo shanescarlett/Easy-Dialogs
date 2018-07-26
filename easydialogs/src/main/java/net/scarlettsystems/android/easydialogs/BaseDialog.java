@@ -11,6 +11,7 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.FontRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.ResourcesCompat;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -25,6 +26,7 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	private CharSequence mTitle;
 	private int mBackgroundColour = Color.TRANSPARENT;
 	private int mSeparatorColour = Color.BLACK;
+	private OnDialogShownListener mDialogShownCallback;
 
 	public BaseDialog(Context context)
 	{
@@ -32,6 +34,11 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	}
 
 	public abstract Dialog onCreateDialog(Context context);
+
+	interface OnDialogShownListener
+	{
+		void onDialogShown();
+	}
 
 	/**
 	 * Show the dialog with previously set configurations. Results in a no-op if the dialog is
@@ -49,6 +56,21 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 		mDialog = onCreateDialog(getContext());
 		mDialog.show();
 		configureWindow(mDialog);
+		mDialog
+				.findViewById(android.R.id.content)
+				.getViewTreeObserver()
+				.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+		{
+			@Override
+			public void onGlobalLayout()
+			{
+				if(mDialogShownCallback != null)
+				{
+					mDialogShownCallback.onDialogShown();
+				}
+
+			}
+		});
 	}
 
 	/**
@@ -123,6 +145,13 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 	public Context getContext()
 	{
 		return mContext;
+	}
+
+	@SuppressWarnings("unchecked")
+	T setOnDialogShownListener(OnDialogShownListener l)
+	{
+		mDialogShownCallback = l;
+		return (T)this;
 	}
 
 	/**
