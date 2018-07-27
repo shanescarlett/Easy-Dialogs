@@ -1,5 +1,6 @@
 package net.scarlettsystems.android.easydialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -11,14 +12,16 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.FontRes;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 
 public abstract class BaseDialog<T extends BaseDialog<T>>
 {
-	private Dialog mDialog;
+	private ActualDialog mDialog;
 	private Context mContext;
 	private boolean mOpenKeyboard = false;
 	private Typeface mTypeface;
@@ -51,11 +54,11 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 		}
 		if(Build.VERSION.SDK_INT >= 16)
 		{
-			mDialog.findViewById(android.R.id.content).getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutListener);
+			mDialog.getDialog().findViewById(android.R.id.content).getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutListener);
 		}
 		else
 		{
-			mDialog.findViewById(android.R.id.content).getViewTreeObserver().removeGlobalOnLayoutListener(mLayoutListener);
+			mDialog.getDialog().findViewById(android.R.id.content).getViewTreeObserver().removeGlobalOnLayoutListener(mLayoutListener);
 		}
 	}
 
@@ -79,10 +82,22 @@ public abstract class BaseDialog<T extends BaseDialog<T>>
 		if(getContext() == null){return;}
 		if(mDialog != null){return;}
 
-		mDialog = onCreateDialog(getContext());
-		mDialog.show();
-		configureWindow(mDialog);
+		mDialog = new ActualDialog();
+		mDialog.setOnCreateDialogListener(new ActualDialog.OnCreateDialogListener()
+		{
+			@Override
+			public Dialog onCreateDialog()
+			{
+				return BaseDialog.this.onCreateDialog(getContext());
+			}
+		});
+
+		//mDialog = onCreateDialog(getContext());
+		FragmentManager fragmentManager = ((AppCompatActivity)getContext()).getSupportFragmentManager();
+		mDialog.showNow(fragmentManager, "dialog");
+		configureWindow(mDialog.getDialog());
 		mDialog
+				.getDialog()
 				.findViewById(android.R.id.content)
 				.getViewTreeObserver()
 				.addOnGlobalLayoutListener(mLayoutListener);

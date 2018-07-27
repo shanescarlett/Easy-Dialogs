@@ -12,7 +12,7 @@ import net.scarlettsystems.android.easydialogs.NumberPickerDialog;
 import net.scarlettsystems.android.easydialogs.PickerDialog;
 import net.scarlettsystems.android.easydialogs.RadioPickerDialog;
 
-public class MainActivity extends Activity
+public class MainActivity extends AppCompatActivity
 {
 
 	@Override
