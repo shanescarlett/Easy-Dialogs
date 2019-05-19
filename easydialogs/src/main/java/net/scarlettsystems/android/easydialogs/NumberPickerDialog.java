@@ -172,6 +172,7 @@ public class NumberPickerDialog extends PickerDialog<NumberPickerDialog>
 					//paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, numberPicker.getResources().getDisplayMetrics()));
 					((EditText) child).setTextColor(color);
 					((EditText) child).setTypeface(typeface);
+					child.requestFocus();
 					//((EditText) child).setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 					numberPicker.invalidate();
 					((View)numberPicker.getParent()).invalidate();
