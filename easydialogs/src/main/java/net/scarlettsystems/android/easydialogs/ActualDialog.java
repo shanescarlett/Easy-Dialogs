@@ -46,7 +46,7 @@ public class ActualDialog extends DialogFragment
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
-		if(mOnCreateDialogListener == null){return new Dialog(getContext());}
+		if(mOnCreateDialogListener == null){return super.onCreateDialog(savedInstanceState);}
 		return mOnCreateDialogListener.onCreateDialog();
 	}
 
