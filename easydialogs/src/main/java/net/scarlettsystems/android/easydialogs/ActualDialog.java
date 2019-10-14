@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
+@SuppressWarnings("unused")
 public class ActualDialog extends DialogFragment
 {
 	private OnCreateDialogListener mOnCreateDialogListener;
@@ -45,6 +46,7 @@ public class ActualDialog extends DialogFragment
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
+		if(mOnCreateDialogListener == null){return new Dialog(getContext());}
 		return mOnCreateDialogListener.onCreateDialog();
 	}
 
