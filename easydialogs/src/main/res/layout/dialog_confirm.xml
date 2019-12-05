@@ -11,11 +11,11 @@
 	<android.support.v7.widget.AppCompatTextView
 		tools:ignore="RtlHardcoded"
 		android:id="@+id/text"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/ui_margin"
 		android:includeFontPadding="true"
-		android:gravity="start"
+		android:gravity="start|center_vertical"
 		app:autoSizeTextType="uniform"
 		tools:text="This is a confirmation dialog. Confirm?"
 
