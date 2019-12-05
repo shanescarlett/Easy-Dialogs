@@ -10,6 +10,8 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
@@ -22,6 +24,7 @@ public class ImageDialog extends SimpleDialog<ImageDialog>
 {
 	private String mPromptText = "";
 	private Object mImage;
+	private ImageView.ScaleType mScaleType;
 
 	public ImageDialog(Context context)
 	{
@@ -70,6 +73,12 @@ public class ImageDialog extends SimpleDialog<ImageDialog>
 		return this;
 	}
 
+	public ImageDialog setScaleType(ImageView.ScaleType type)
+	{
+		mScaleType = type;
+		return this;
+	}
+
 	@Override
 	public View onCreateContentView(Context context)
 	{
@@ -82,6 +91,10 @@ public class ImageDialog extends SimpleDialog<ImageDialog>
 
 		RequestManager glideRequest = Glide.with(context);
 		RequestBuilder<Drawable> builder;
+		if(mScaleType != null)
+		{
+			image.setScaleType(mScaleType);
+		}
 		if(mImage instanceof Bitmap)
 			builder = glideRequest.load((Bitmap)mImage);
 		else if(mImage instanceof Drawable)
