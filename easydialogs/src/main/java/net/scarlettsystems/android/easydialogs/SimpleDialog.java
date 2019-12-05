@@ -230,8 +230,11 @@ public abstract class SimpleDialog<T extends SimpleDialog<T>> extends BaseDialog
 		lp.rightMargin = getContext().getResources().getDimensionPixelSize(R.dimen.ui_margin);
 		View content = onCreateContentView(getContext());
 		content.setLayoutParams(lp);
-		content.setId(ViewCompat.generateViewId());
-		content.setBackgroundColor(Color.TRANSPARENT);
+		if(content.getId() == View.NO_ID)
+		{
+			content.setId(ViewCompat.generateViewId());
+		}
+		//content.setBackgroundColor(Color.TRANSPARENT);
 		root.addView(content);
 
 		ConstraintSet cs = new ConstraintSet();
