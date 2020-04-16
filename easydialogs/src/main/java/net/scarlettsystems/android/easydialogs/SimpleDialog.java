@@ -221,7 +221,7 @@ public abstract class SimpleDialog<T extends SimpleDialog<T>> extends BaseDialog
 		}
 	}
 
-	private void configureContentView(Dialog d)
+	public void configureContentView(Dialog d)
 	{
 		ConstraintLayout root = d.findViewById(R.id.root);
 		root.setBackgroundColor(getBackgroundColour());
